@@ -234,30 +234,19 @@ export interface CompileResult {
   error?: string;
 }
 
-const COMPILER_API_URL = import.meta.env.VITE_COMPILER_API_URL || 'http://localhost:3001';
-
 export const compileArduinoCode = async (
   code: string,
   board: string
 ): Promise<CompileResult> => {
   try {
-    // CAMBIO: Hacemos fetch directo a tu servidor Node.js en Plesk
-    const response = await fetch(`${COMPILER_API_URL}/compile`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ code, fqbn: board }), // Enviamos 'fqbn' como espera tu server.js
+    const { data, error } = await supabase.functions.invoke('compile-arduino', {
+      body: { code, board },
     });
 
-    const data = await response.json();
-
-    // Adaptamos la respuesta de tu server.js al formato que espera el frontend
-    if (!data.success) {
+    if (error) {
       return {
         success: false,
-        error: data.error,
-        output: data.output
+        error: error.message,
       };
     }
 
@@ -266,7 +255,7 @@ export const compileArduinoCode = async (
     console.error('Compile request error:', err);
     return {
       success: false,
-      error: err instanceof Error ? err.message : 'Error conectando con el servidor de compilación',
+      error: err instanceof Error ? err.message : 'Failed to compile code',
     };
   }
 };
