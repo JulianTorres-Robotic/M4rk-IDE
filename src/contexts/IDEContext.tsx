@@ -114,12 +114,15 @@ export const IDEProvider: React.FC<IDEProviderProps> = ({ children }) => {
 
   // --- FUNCIONES DE CONSOLA SERIAL ---
   const addConsoleMessage = useCallback((type: ConsoleMessage['type'], message: string) => {
-    setConsoleMessages(prev => [...prev, {
+    setConsoleMessages(prev => [
+      {
       id: `${Date.now()}-${Math.random()}`,
       type,
       message,
       timestamp: new Date()
-    }]);
+      },
+      ...prev
+    ]);
   }, []);
 
   const clearConsole = useCallback(() => setConsoleMessages([]), []);
