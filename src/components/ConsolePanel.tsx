@@ -64,7 +64,7 @@ const ConsolePanel: React.FC = () => {
         </Button>
       </div>
       
-      {/* Messages */}
+      {/* Mensajes */}
       <ScrollArea className="flex-1" ref={scrollRef}>
         <div className="p-4 space-y-2">
           {consoleMessages.length === 0 ? (
