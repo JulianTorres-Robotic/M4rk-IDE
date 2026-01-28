@@ -9,12 +9,12 @@ const ConsolePanel: React.FC = () => {
   const { consoleMessages, clearConsole } = useIDE();
   const scrollRef = useRef<HTMLDivElement>(null);
   //Se comenta este bloque para evitar el scroll automatico al agregar mensajes nuevos
-  /*useEffect(() => {
+  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [consoleMessages]);
-  */
+  
   const getIcon = (type: string) => {
     switch (type) {
       case 'error':
