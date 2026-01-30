@@ -1,7 +1,6 @@
 M4RK-IDE
 ========
 
-_Unleash Creativity, Accelerate Innovation Seamlessly_
 
 ![last-commit](https://img.shields.io/github/last-commit/JulianTorres-Robotic/M4rk-IDE?style=flat&logo=git&logoColor=white&color=0080ff) ![repo-top-language](https://img.shields.io/github/languages/top/JulianTorres-Robotic/M4rk-IDE?style=flat&color=0080ff) ![repo-language-count](https://img.shields.io/github/languages/count/JulianTorres-Robotic/M4rk-IDE?style=flat&color=0080ff)
 
