@@ -127,7 +127,7 @@
     background-attachment: fixed;
   }
   
-  /* === SCROLLBARS GOMINOLA === */
+  /* === SCROLLBARS GOMINOLA (Navegador) === */
   ::-webkit-scrollbar { 
     width: 14px; 
     height: 14px; 
@@ -444,4 +444,145 @@
 
 .blockly-container .blocklyFlyout {
   border-radius: 1rem !important;
+}
+
+.blockly-container .blocklyScrollbarVertical,
+.blockly-container .blocklyScrollbarHorizontal {
+  border-radius: 8px;
+}
+
+/* Fix for scrollbar issues when toolbox opens/closes */
+.blockly-container .blocklyFlyoutScrollbar {
+  border-radius: 4px;
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  .toolbar-island {
+    @apply px-2 py-2 gap-1;
+  }
+  
+  .clay-btn {
+    @apply px-3 py-2 text-xs;
+  }
+  
+  .ide-panel {
+    @apply rounded-2xl;
+  }
+  
+  .workspace-inset {
+    @apply rounded-2xl;
+  }
+  
+  /* Larger touch targets on mobile */
+  .clay-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Adjust status bar for mobile */
+  .toolbar-island.justify-between {
+    @apply flex-col gap-2 text-center;
+  }
+}
+
+@media (max-width: 640px) {
+  .clay-btn span.hidden {
+    display: none !important;
+  }
+  
+  .toolbar-island {
+    @apply justify-center;
+  }
+  
+  /* Stack toolbar items on very small screens */
+  .toolbar-island > div {
+    @apply justify-center;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent; 
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+}
+.blocklyWidgetDiv, .blocklyDropDownDiv {
+  z-index: 9999 !important;
+}
+
+.blocklyMainBackground {
+  stroke: none !important;
+}
+
+.blockly-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* === CORRECCIÓN DE SCROLLBARS DE BLOCKLY (Solución Definitiva) === */
+
+/* 1. Ocultar el carril de fondo completamente */
+.blocklyScrollbarBackground {
+  display: none !important; /* Más agresivo que fill:none para evitar clicks fantasma */
+}
+
+/* 2. Estilizar la manija (el botón que se mueve) */
+.blocklyScrollbarHandle {
+  fill: hsl(var(--primary)) !important; 
+  fill-opacity: 0 !important; /* INVISIBLE POR DEFECTO */
+  rx: 4px;
+  ry: 4px;
+  transition: fill-opacity 0.2s ease-in-out;
+  cursor: grab;
+}
+
+/* 3. Solo mostrar la manija al pasar el mouse SOBRE la barra */
+/* Usamos el grupo padre para detectar el hover en el área */
+.blocklyScrollbarVertical:hover .blocklyScrollbarHandle,
+.blocklyScrollbarHorizontal:hover .blocklyScrollbarHandle {
+  fill-opacity: 0.6 !important; /* Visible suavemente al interactuar */
+}
+
+/* Estado activo (arrastrando) */
+.blocklyScrollbarHandle:active {
+  fill-opacity: 0.9 !important;
+  cursor: grabbing;
+}
+
+/* 4. Asegurar Z-Index correcto */
+.blocklyFlyoutScrollbar {
+  z-index: 50;
 }
