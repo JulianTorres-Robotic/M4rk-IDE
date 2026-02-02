@@ -512,7 +512,7 @@ export const createArduinoGenerator = (): any => {
   Arduino.forBlock['arduino_digital_read'] = function(block: Blockly.Block) {
     const pin = Arduino.valueToCode(block, 'PIN', Arduino.ORDER_ATOMIC) || '0';
     Arduino.setups_['pin_' + pin] = `pinMode(${pin}, INPUT);`;
-    return [`digitalRead(${pin})`, Arduino.ORDER_ATOMIC];
+    return [`digitalRead(${pin})`, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // Analog I/O
@@ -525,7 +525,7 @@ export const createArduinoGenerator = (): any => {
 
   Arduino.forBlock['arduino_analog_read'] = function(block: Blockly.Block) {
     const pin = Arduino.valueToCode(block, 'PIN', Arduino.ORDER_ATOMIC) || 'A0';
-    return [`analogRead(${pin})`, Arduino.ORDER_ATOMIC];
+    return [`analogRead(${pin})`, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // Tiempo
@@ -540,11 +540,11 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['arduino_millis'] = function() {
-    return ['millis()', Arduino.ORDER_ATOMIC];
+    return ['millis()', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['arduino_micros'] = function() {
-    return ['micros()', Arduino.ORDER_ATOMIC];
+    return ['micros()', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // Serial
@@ -565,26 +565,26 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['arduino_serial_available'] = function() {
-    return ['Serial.available()', Arduino.ORDER_ATOMIC];
+    return ['Serial.available()', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['arduino_serial_read'] = function() {
-    return ['Serial.read()', Arduino.ORDER_ATOMIC];
+    return ['Serial.read()', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // Pines y Constantes
   Arduino.forBlock['arduino_pin_number'] = function(block: Blockly.Block) {
     const pin = block.getFieldValue('PIN');
-    return [pin, Arduino.ORDER_ATOMIC];
+    return [pin, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['arduino_led_builtin'] = function() {
-    return ['LED_BUILTIN', Arduino.ORDER_ATOMIC];
+    return ['LED_BUILTIN', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['arduino_high_low'] = function(block: Blockly.Block) {
     const val = block.getFieldValue('VALUE');
-    return [val, Arduino.ORDER_ATOMIC];
+    return [val, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // Motores L298N
@@ -621,7 +621,7 @@ export const createArduinoGenerator = (): any => {
     const echo = block.getFieldValue('ECHO_PIN');
     Arduino.setups_['ultra_' + trig] = `pinMode(${trig}, OUTPUT); pinMode(${echo}, INPUT);`;
     Arduino.definitions_['func_ultra'] = `long readUltrasonicDistance(int trigPin, int echoPin) {\n  digitalWrite(trigPin, LOW); delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH); delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n  return pulseIn(echoPin, HIGH) * 0.034 / 2;\n}`;
-    return [`readUltrasonicDistance(${trig}, ${echo})`, Arduino.ORDER_ATOMIC];
+    return [`readUltrasonicDistance(${trig}, ${echo})`, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['color_sensor_read'] = function(block: Blockly.Block) {
@@ -642,12 +642,12 @@ export const createArduinoGenerator = (): any => {
     const funcName = `readColor_${colorComp}`;
     Arduino.definitions_['func_' + funcName] = `int ${funcName}(int s2, int s3, int out) { ${filterCode} return pulseIn(out, LOW); }`;
 
-    return [`${funcName}(${s2}, ${s3}, ${out})`, Arduino.ORDER_ATOMIC];
+    return [`${funcName}(${s2}, ${s3}, ${out})`, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
-  Arduino.forBlock['sound_sensor_read'] = function (block) {
+  Arduino.forBlock['sound_sensor_read'] = function (block: Blockly.Block) {
     const pin = block.getFieldValue('PIN');
-    return ['analogRead(' + pin + ')', Arduino.ORDER_ATOMIC];
+    return ['analogRead(' + pin + ')', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // WiFi
@@ -660,7 +660,7 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['wifi_is_connected'] = function(block: Blockly.Block) {
-    return ['(WiFi.status() == WL_CONNECTED)', Arduino.ORDER_ATOMIC];
+    return ['(WiFi.status() == WL_CONNECTED)', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // Bluetooth
@@ -675,7 +675,7 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['bluetooth_read_string'] = function(block: Blockly.Block) {
-    return ['BTSerial.readString()', Arduino.ORDER_ATOMIC];
+    return ['BTSerial.readString()', Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['bluetooth_send_string'] = function(block: Blockly.Block) {
@@ -735,19 +735,19 @@ export const createArduinoGenerator = (): any => {
     const fh = Arduino.valueToCode(block, 'FROM_HIGH', Arduino.ORDER_ATOMIC) || '1023';
     const tl = Arduino.valueToCode(block, 'TO_LOW', Arduino.ORDER_ATOMIC) || '0';
     const th = Arduino.valueToCode(block, 'TO_HIGH', Arduino.ORDER_ATOMIC) || '255';
-    return [`map(${val}, ${fl}, ${fh}, ${tl}, ${th})`, Arduino.ORDER_ATOMIC];
+    return [`map(${val}, ${fl}, ${fh}, ${tl}, ${th})`, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['arduino_constrain'] = function(block: Blockly.Block) {
     const val = Arduino.valueToCode(block, 'VALUE', Arduino.ORDER_ATOMIC) || '0';
     const low = Arduino.valueToCode(block, 'LOW', Arduino.ORDER_ATOMIC) || '0';
     const high = Arduino.valueToCode(block, 'HIGH', Arduino.ORDER_ATOMIC) || '255';
-    return [`constrain(${val}, ${low}, ${high})`, Arduino.ORDER_ATOMIC];
+    return [`constrain(${val}, ${low}, ${high})`, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['arduino_text'] = function(block: Blockly.Block) {
     const text = block.getFieldValue('TEXT');
-    return [`"${text}"`, Arduino.ORDER_ATOMIC];
+    return [`"${text}"`, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // --- BLOQUES ESTÁNDAR (Logic, Math, Loops) ---
@@ -795,8 +795,8 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['math_number'] = function(block: Blockly.Block) {
-    const code = Number(block.getFieldValue('NUM'));
-    return [code, Arduino.ORDER_ATOMIC];
+    const code = String(block.getFieldValue('NUM'));
+    return [code, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['math_arithmetic'] = function(block: Blockly.Block) {
@@ -812,8 +812,8 @@ export const createArduinoGenerator = (): any => {
     const order = tuple[1];
     const arg0 = Arduino.valueToCode(block, 'A', order) || '0';
     const arg1 = Arduino.valueToCode(block, 'B', order) || '0';
-    if (!operator) return [`pow(${arg0}, ${arg1})`, Arduino.ORDER_UNARY_POSTFIX];
-    return [arg0 + operator + arg1, order];
+    if (!operator) return [`pow(${arg0}, ${arg1})`, Arduino.ORDER_UNARY_POSTFIX] as [string, number];
+    return [arg0 + operator + arg1, order] as [string, number];
   };
 
   Arduino.forBlock['logic_compare'] = function(block: Blockly.Block) {
@@ -821,7 +821,7 @@ export const createArduinoGenerator = (): any => {
      const op = OPS[block.getFieldValue('OP')];
      const arg0 = Arduino.valueToCode(block, 'A', Arduino.ORDER_RELATIONAL) || '0';
      const arg1 = Arduino.valueToCode(block, 'B', Arduino.ORDER_RELATIONAL) || '0';
-     return [`${arg0} ${op} ${arg1}`, Arduino.ORDER_RELATIONAL];
+     return [`${arg0} ${op} ${arg1}`, Arduino.ORDER_RELATIONAL] as [string, number];
   };
 
   Arduino.forBlock['logic_operation'] = function(block: Blockly.Block) {
@@ -829,23 +829,23 @@ export const createArduinoGenerator = (): any => {
     const order = (op == '&&') ? Arduino.ORDER_LOGICAL_AND : Arduino.ORDER_LOGICAL_OR;
     const argument0 = Arduino.valueToCode(block, 'A', order) || 'false';
     const argument1 = Arduino.valueToCode(block, 'B', order) || 'false';
-    return [argument0 + ' ' + op + ' ' + argument1, order];
+    return [argument0 + ' ' + op + ' ' + argument1, order] as [string, number];
   };
 
   Arduino.forBlock['logic_negate'] = function(block: Blockly.Block) {
     const argument0 = Arduino.valueToCode(block, 'BOOL', Arduino.ORDER_UNARY_PREFIX) || 'true';
-    return ['!' + argument0, Arduino.ORDER_UNARY_PREFIX];
+    return ['!' + argument0, Arduino.ORDER_UNARY_PREFIX] as [string, number];
   };
 
   Arduino.forBlock['logic_boolean'] = function(block: Blockly.Block) {
     const code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
-    return [code, Arduino.ORDER_ATOMIC];
+    return [code, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   // Variables
   Arduino.forBlock['variables_get'] = function(block: Blockly.Block) {
     const varName = Arduino.getVariableName(block.getFieldValue('VAR'));
-    return [varName, Arduino.ORDER_ATOMIC];
+    return [varName, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['variables_set'] = function(block: Blockly.Block) {
