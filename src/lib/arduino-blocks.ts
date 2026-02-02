@@ -51,7 +51,6 @@ export const defineArduinoBlocks = () => {
           .appendField("Escribir Digital PIN");
       this.appendDummyInput()
           .appendField("Valor")
-          // Restaurado nombre 'VALUE' para compatibilidad
           .appendField(new Blockly.FieldDropdown([["ALTO","HIGH"], ["BAJO","LOW"]]), "VALUE"); 
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -786,12 +785,15 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['controls_for'] = function(block: Blockly.Block) {
-    const variable = Arduino.getVariableName(block.getFieldValue('VAR'));
+    const varId = block.getFieldValue('VAR');
+    const variable = block.workspace.getVariableById(varId);
+    const varName = Arduino.getVariableName(variable.name);
+
     const argument0 = Arduino.valueToCode(block, 'FROM', Arduino.ORDER_ASSIGNMENT) || '0';
     const argument1 = Arduino.valueToCode(block, 'TO', Arduino.ORDER_ASSIGNMENT) || '10';
     const increment = Arduino.valueToCode(block, 'BY', Arduino.ORDER_ASSIGNMENT) || '1';
     const branch = Arduino.statementToCode(block, 'DO');
-    return `for (int ${variable} = ${argument0}; ${variable} <= ${argument1}; ${variable} += ${increment}) {\n${branch}}\n`;
+    return `for (int ${varName} = ${argument0}; ${varName} <= ${argument1}; ${varName} += ${increment}) {\n${branch}}\n`;
   };
 
   Arduino.forBlock['math_number'] = function(block: Blockly.Block) {
@@ -844,18 +846,23 @@ export const createArduinoGenerator = (): any => {
 
   // Variables
   Arduino.forBlock['variables_get'] = function(block: Blockly.Block) {
-    const varName = Arduino.getVariableName(block.getFieldValue('VAR'));
+    const varId = block.getFieldValue('VAR');
+    const variable = block.workspace.getVariableById(varId);
+    const varName = Arduino.getVariableName(variable.name);
     return [varName, Arduino.ORDER_ATOMIC] as [string, number];
   };
 
   Arduino.forBlock['variables_set'] = function(block: Blockly.Block) {
-    const varName = Arduino.getVariableName(block.getFieldValue('VAR'));
+    const varId = block.getFieldValue('VAR');
+    const variable = block.workspace.getVariableById(varId);
+    const varName = Arduino.getVariableName(variable.name);
+    
     const value = Arduino.valueToCode(block, 'VALUE', Arduino.ORDER_ASSIGNMENT) || '0';
     return `${varName} = ${value};\n`;
   };
 
-  Arduino.getVariableName = function(id: string) {
-    return id.replace(/[^a-zA-Z0-9_]/g, '_');
+  Arduino.getVariableName = function(name: string) {
+    return name.replace(/[^a-zA-Z0-9_]/g, '_');
   };
 
   return Arduino;
