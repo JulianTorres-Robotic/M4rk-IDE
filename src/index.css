@@ -568,10 +568,10 @@
   letter-spacing: 0.01em !important;
 }
 .blockly-container .blocklyToolboxCategory:hover .blocklyTreeLabel {
-  color: hsl(var(--primary)) !important;
+  color: hsl(239, 63%, 56%) !important;
 }
 .blockly-container .blocklyToolboxCategory[aria-selected="true"] .blocklyTreeLabel {
-  color: hsl(var(--primary)) !important;
+  color: #ffffff !important;
   font-weight: 800 !important;
 }
 /* Flyout panel */
