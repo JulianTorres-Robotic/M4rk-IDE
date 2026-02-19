@@ -447,15 +447,19 @@ const Toolbar: React.FC<ToolbarProps> = ({
               ))}
             </SelectContent>
           </Select>
-
-          <button
-            onClick={handleConnect}
-            className={`clay-btn gap-2 text-xs ${isConnected ? 'clay-btn-success' : ''}`}
-          >
-            <Usb className="w-4 h-4" />
-            <span className={`status-dot ${isConnected ? 'status-dot-connected' : 'status-dot-disconnected'}`} />
-            <span className="hidden sm:inline">{isConnected ? 'Conectado' : 'Conectar'}</span>
-          </button>
+          {//          
+          //<button
+          //  onClick={handleConnect}
+          //  className={`clay-btn gap-2 text-xs ${isConnected ? 'clay-btn-success' : ''}`}
+          //>
+           // <Usb className="w-4 h-4" />
+           // <span className={`status-dot ${isConnected ? 'status-dot-connected' : 'status-dot-disconnected'}`} />
+           // {
+            //**<span className="hidden sm:inline">{isConnected ? 'Conectado' : 'Conectar'}</span>     
+           //</div> }
+            
+          //</button>
+          }
 
           <button
             onClick={handleBuild}
