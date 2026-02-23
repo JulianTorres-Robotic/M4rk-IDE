@@ -69,9 +69,11 @@ export const defineArduinoBlocks = () => {
       this.appendValueInput('PIN')
         .setCheck('Number')
         .appendField("Escribir Digital PIN");
+
       this.appendDummyInput()
         .appendField("Valor")
         .appendField(new Blockly.FieldDropdown([["ALTO", "HIGH"], ["BAJO", "LOW"]]), "VALUE");
+
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(65);
@@ -83,6 +85,7 @@ export const defineArduinoBlocks = () => {
       this.appendValueInput('PIN')
         .setCheck('Number')
         .appendField("Leer Digital PIN");
+
       this.setOutput(true, "Number");
       this.setColour(65);
     }
@@ -94,9 +97,11 @@ export const defineArduinoBlocks = () => {
       this.appendValueInput('PIN')
         .setCheck('Number')
         .appendField("Escribir PWM PIN");
+
       this.appendValueInput('VALUE')
         .setCheck('Number')
         .appendField('Valor (0-255)');
+
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(65);
@@ -106,8 +111,9 @@ export const defineArduinoBlocks = () => {
   Blockly.Blocks['arduino_analog_read'] = {
     init: function () {
       this.appendValueInput('PIN')
-        .setCheck('Number') // Permitir variables o dropdowns numéricos
+        .setCheck('Number')
         .appendField("Leer Analógico PIN");
+
       this.setOutput(true, "Number");
       this.setColour(65);
     }
@@ -216,11 +222,11 @@ export const defineArduinoBlocks = () => {
       this.setColour(230);
     }
   };
+
   // --- MOTORES L298N ---
   Blockly.Blocks['motor_setup'] = {
     init: function () {
       this.appendDummyInput().appendField("Configurar Motor L298N");
-
       this.appendDummyInput()
         .appendField("Nombre")
         .appendField(new Blockly.FieldDropdown(MOTOR_DROPDOWN), 'MOTOR')
@@ -242,10 +248,12 @@ export const defineArduinoBlocks = () => {
     init: function () {
       this.appendDummyInput()
         .appendField("Mover Motor");
+
       this.appendDummyInput()
         .appendField("Nombre")
         .appendField(new Blockly.FieldDropdown(MOTOR_DROPDOWN), 'MOTOR')
         .appendField("Dirección")
+
         .appendField(new Blockly.FieldDropdown([["Adelante", "FORWARD"], ["Reversa", "BACKWARD"]]), "DIRECTION");
       this.appendValueInput("SPEED")
         .setCheck("Number")
@@ -277,6 +285,7 @@ export const defineArduinoBlocks = () => {
         .appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'TRIG_PIN')
         .appendField("Echo")
         .appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'ECHO_PIN');
+
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour('#8E44AD');
@@ -287,12 +296,14 @@ export const defineArduinoBlocks = () => {
   Blockly.Blocks['ultrasonic_read'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField("Leer distancia (cm)")
-        .appendField(new Blockly.FieldDropdown(ULTRASONIC_DROPDOWN), "ULTRA_NAME");
-      // setOutput(true, "Number") es lo que permite que encaje en un bloque "if"
+        .appendField("Distancia de")
+        .appendField(new Blockly.FieldDropdown(ULTRASONIC_DROPDOWN), "ULTRA_NAME")
+        .appendField("en")
+        .appendField(new Blockly.FieldDropdown([["cm", "CM"], ["pulgadas", "INCH"]]), "UNIT");
+
       this.setOutput(true, "Number");
       this.setColour('#8E44AD');
-      this.setTooltip('Obtiene la distancia en centímetros.');
+      this.setTooltip('Obtiene la distancia del sensor en la unidad seleccionada.');
     }
   };
 
@@ -304,6 +315,7 @@ export const defineArduinoBlocks = () => {
         .appendField("S2").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'S2')
         .appendField("S3").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'S3')
         .appendField("OUT").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'OUT');
+
       this.appendDummyInput().appendField("Componente").appendField(new Blockly.FieldDropdown([['Rojo', 'RED'], ['Verde', 'GREEN'], ['Azul', 'BLUE']]), 'COLOR_COMP');
       this.setOutput(true, "Number");
       this.setColour('#F1C40F');
@@ -342,9 +354,11 @@ export const defineArduinoBlocks = () => {
   Blockly.Blocks['bluetooth_setup'] = {
     init: function () {
       this.appendDummyInput().appendField("Configurar Bluetooth");
+
       this.appendDummyInput().appendField("RX").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'RX_PIN')
         .appendField("TX").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'TX_PIN')
         .appendField("Baudios").appendField(new Blockly.FieldDropdown([['9600', '9600'], ['38400', '38400']]), 'BAUD');
+
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour('#2980B9');
@@ -372,9 +386,11 @@ export const defineArduinoBlocks = () => {
   Blockly.Blocks['display_8x8_setup'] = {
     init: function () {
       this.appendDummyInput().appendField("Configurar Matriz 8x8");
+
       this.appendDummyInput().appendField("DIN").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'DIN')
         .appendField("CLK").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'CLK')
         .appendField("CS").appendField(new Blockly.FieldDropdown(DIGITAL_PINS_DROPDOWN), 'CS');
+
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour('#D35400');
@@ -407,6 +423,7 @@ export const defineArduinoBlocks = () => {
     init: function () {
       this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([['servo1', 'servo1'], ['servo2', 'servo2']]), 'SERVO');
+
       this.appendValueInput('ANGLE').setCheck('Number').appendField('Mover a ángulo');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -466,9 +483,7 @@ export const defineArduinoBlocks = () => {
   };
 };
 
-// =========================================================
 // 3. GENERADOR DE CÓDIGO (createArduinoGenerator)
-// =========================================================
 export const createArduinoGenerator = (): any => {
   const Arduino: any = new Blockly.Generator('Arduino');
 
@@ -510,19 +525,58 @@ export const createArduinoGenerator = (): any => {
     const variables = Object.values(this.variables_).join('\n');
     const setups = Object.values(this.setups_).join('\n  ');
 
-    // Si el usuario usa el bloque "arduino_setup_loop", no generamos setup() automático
-    let setupFunction = '';
-    let loopFunction = '';
-
     if (code.includes('void setup()') || code.includes('void loop()')) {
-      // El usuario usó bloques de estructura explícita
-      return `// Generado por M4rk-IDE${definitions}${variables}\n\n${code}`;
-    } else {
-      // Generación automática de estructura
-      setupFunction = `void setup() {\n  ${setups}\n}\n\n`;
-      loopFunction = `void loop() {\n${code}\n}`;
-      return `// Generado por M4rk-IDE${definitions}${variables}\n\n${setupFunction}${loopFunction}`;
+      // Inserta setups_ dentro de void setup() { ... }
+      let patched = code;
+      if (setups.trim()) {
+        patched = patched.replace(
+          /void\s+setup\s*\(\s*\)\s*\{\s*/m,
+          (m: string) => `${m}\n  ${setups}\n`
+        );
+      }
+      return `// Generado por M4rk-IDE\n${definitions}\n${variables}\n\n${patched}`;
     }
+  };
+
+  Arduino.workspaceToCode = function (workspace: Blockly.Workspace) {
+    this.init(workspace);
+    let codeArray = [];
+
+    // Obtenemos todos los bloques que no tienen un bloque "padre" (los que están sueltos)
+    const blocks = workspace.getTopBlocks(true);
+
+    // Definimos qué bloques tienen permiso de ser la "raíz" o el inicio del programa
+    const validTopBlocks = [
+      'arduino_setup_loop',
+      'arduino_start',
+      // Por si en el futuro se agrega la categoría de funciones/procedimientos:
+      'procedures_defnoreturn',
+      'procedures_defreturn'
+    ];
+
+    for (const block of blocks) {
+      // SOLO generamos código si el bloque es uno de los inicios permitidos
+      if (validTopBlocks.includes(block.type)) {
+        let line = this.blockToCode(block);
+        if (Array.isArray(line)) {
+          line = line[0];
+        }
+        if (line) {
+          codeArray.push(line);
+        }
+      }
+    }
+
+    // Unimos el código válido y lo pasamos por la función finish que configuraste antes
+    let code = codeArray.join('\n');
+    code = this.finish(code);
+
+    // Limpieza final de espacios en blanco adicionales
+    code = code.replace(/^\s+\n/, '');
+    code = code.replace(/\n\s+$/, '\n');
+    code = code.replace(/[ \t]+\n/g, '\n');
+
+    return code;
   };
 
   Arduino.scrub_ = function (block: Blockly.Block, code: string) {
@@ -550,7 +604,7 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['arduino_digital_write'] = function (block: Blockly.Block) {
-    // AHORA USA valueToCode porque 'PIN' es un Input, no un Field
+    // Se usa valueToCode porque 'PIN' es un Input, no un Field
     const pin = Arduino.valueToCode(block, 'PIN', Arduino.ORDER_ATOMIC) || '0';
     const state = block.getFieldValue('VALUE'); // Restaurado a VALUE
     Arduino.setups_['pin_' + pin] = `pinMode(${pin}, OUTPUT);`;
@@ -637,7 +691,7 @@ export const createArduinoGenerator = (): any => {
 
   // Motores L298N
   Arduino.forBlock['motor_setup'] = function (block: Blockly.Block) {
-    const name = block.getFieldValue('MOTOR_NAME');
+    const name = Arduino.getVariableName(block.getFieldValue('MOTOR'));
     const in1 = block.getFieldValue('IN1');
     const in2 = block.getFieldValue('IN2');
     const en = block.getFieldValue('EN');
@@ -648,7 +702,7 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['motor_run'] = function (block: Blockly.Block) {
-    const name = block.getFieldValue('MOTOR_NAME');
+    const name = Arduino.getVariableName(block.getFieldValue('MOTOR'));
     const dir = block.getFieldValue('DIRECTION');
     const speedPercentage = Arduino.valueToCode(block, 'SPEED', Arduino.ORDER_ATOMIC) || '100';
 
@@ -659,7 +713,7 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['motor_stop'] = function (block: Blockly.Block) {
-    const name = block.getFieldValue('MOTOR_NAME');
+    const name = Arduino.getVariableName(block.getFieldValue('MOTOR'));
     return `analogWrite(${name}_EN, 0); digitalWrite(${name}_IN1, LOW); digitalWrite(${name}_IN2, LOW);\n`;
   };
 
@@ -669,19 +723,25 @@ export const createArduinoGenerator = (): any => {
     const trig = block.getFieldValue('TRIG_PIN');
     const echo = block.getFieldValue('ECHO_PIN');
 
-    // Guardamos los pines como constantes globales
+    // Se guardan los pines asignados a cada ultrasónico
     Arduino.definitions_['ultra_pins_' + name] = `const int ${name}_TRIG = ${trig};\nconst int ${name}_ECHO = ${echo};`;
     Arduino.setups_['ultra_setup_' + name] = `pinMode(${name}_TRIG, OUTPUT); pinMode(${name}_ECHO, INPUT);`;
 
-    // Función global optimizada con timeout de 30ms (evita que el programa se cuelgue)
-    Arduino.definitions_['func_ultra'] = `long readUltrasonicDistance(int trigPin, int echoPin) {\n  digitalWrite(trigPin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n  long duration = pulseIn(echoPin, HIGH, 30000); // 30ms de timeout\n  if (duration == 0) return 400; // Si falla, asume distancia máxima segura (400cm)\n  return duration * 0.034 / 2;\n}`;
+    // Función global que lee el pulso (retorna el tiempo en microsegundos con timeout de seguridad)
+    Arduino.definitions_['func_ultra_duration'] = `long readUltrasonicDuration(int trigPin, int echoPin) {\n  digitalWrite(trigPin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n  long duration = pulseIn(echoPin, HIGH, 30000); // 30ms timeout\n  if (duration == 0) return 30000; // Si falla o no hay eco, devuelve un valor seguro alto\n  return duration;\n}`;
 
     return '';
   };
 
   Arduino.forBlock['ultrasonic_read'] = function (block: Blockly.Block) {
     const name = block.getFieldValue('ULTRA_NAME');
-    return [`readUltrasonicDistance(${name}_TRIG, ${name}_ECHO)`, Arduino.ORDER_ATOMIC] as [string, number];
+    const unit = block.getFieldValue('UNIT');
+
+    // Factores de conversión según la unidad elegida por el usuario entre pulgadas a cm y viceversa
+    const multiplier = unit === 'CM' ? '0.034 / 2' : '0.0133 / 2';
+
+    // Genera el código para llamar a la función y multiplicar por el factor
+    return [`(readUltrasonicDuration(${name}_TRIG, ${name}_ECHO) * ${multiplier})`, Arduino.ORDER_MULTIPLICATIVE];
   };
 
   Arduino.forBlock['color_sensor_read'] = function (block: Blockly.Block) {
@@ -937,9 +997,7 @@ export const createArduinoGenerator = (): any => {
   return Arduino;
 };
 
-// =========================================================
 // 4. CONFIGURACIÓN DEL TOOLBOX (MENU LATERAL)
-// =========================================================
 export const arduinoToolbox = {
   kind: 'categoryToolbox',
   contents: [
@@ -1018,7 +1076,29 @@ export const arduinoToolbox = {
       name: 'Lógica',
       colour: '210',
       contents: [
+        // 1. Bloque IF simple
         { kind: 'block', type: 'controls_if' },
+
+        // 2. Bloque IF / ELSE
+        {
+          kind: 'block',
+          type: 'controls_if',
+          extraState: {
+            hasElse: true
+          }
+        },
+
+        // 3. Bloque IF / ELSE IF / ELSE
+        {
+          kind: 'block',
+          type: 'controls_if',
+          extraState: {
+            elseIfCount: 1,
+            hasElse: true
+          }
+        },
+
+        // Operadores lógicos y de comparación
         { kind: 'block', type: 'logic_compare' },
         { kind: 'block', type: 'logic_operation' },
         { kind: 'block', type: 'logic_boolean' },
