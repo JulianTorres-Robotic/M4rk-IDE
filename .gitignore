@@ -17,7 +17,7 @@ lerna-debug.log*
 node_modules/
 
 # Builds
-#dist/
+dist/
 dist-ssr/
 coverage/
 *.local
