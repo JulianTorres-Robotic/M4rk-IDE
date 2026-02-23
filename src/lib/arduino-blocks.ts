@@ -2,7 +2,7 @@ import * as Blockly from 'blockly';
 
 // 1. CONSTANTES Y UTILIDADES
 
-// Definimos pines para los menús desplegables (si se usan)
+// Definimos pines para los menús desplegables
 const DIGITAL_PINS_DROPDOWN: any = Array.from({ length: 14 }, (_, i) => [i.toString(), i.toString()]);
 const ANALOG_PINS_DROPDOWN: any = Array.from({ length: 6 }, (_, i) => [`A${i}`, `A${i}`]);
 const MOTOR_DROPDOWN: any = [
@@ -604,7 +604,6 @@ export const createArduinoGenerator = (): any => {
   };
 
   Arduino.forBlock['arduino_digital_write'] = function (block: Blockly.Block) {
-    // Se usa valueToCode porque 'PIN' es un Input, no un Field
     const pin = Arduino.valueToCode(block, 'PIN', Arduino.ORDER_ATOMIC) || '0';
     const state = block.getFieldValue('VALUE'); // Restaurado a VALUE
     Arduino.setups_['pin_' + pin] = `pinMode(${pin}, OUTPUT);`;

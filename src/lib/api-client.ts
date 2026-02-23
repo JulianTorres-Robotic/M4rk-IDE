@@ -51,9 +51,7 @@ export interface AuthResponse {
   token: string;
 }
 
-// ============================================
 // Token Management
-// ============================================
 
 export const getToken = (): string | null => {
   return localStorage.getItem(TOKEN_KEY);
@@ -84,9 +82,7 @@ export const setStoredUser = (user: User): void => {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 };
 
-// ============================================
 // API Request Helper
-// ============================================
 
 interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -96,7 +92,7 @@ interface RequestOptions {
 
 async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, requireAuth = false } = options;
-  
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
@@ -123,9 +119,7 @@ async function apiRequest<T>(endpoint: string, options: RequestOptions = {}): Pr
   return data;
 }
 
-// ============================================
 // Authentication API
-// ============================================
 
 export const authApi = {
   async signup(email: string, password: string, displayName?: string): Promise<AuthResponse> {
@@ -133,10 +127,10 @@ export const authApi = {
       method: 'POST',
       body: { email, password, displayName }
     });
-    
+
     setToken(result.token);
     setStoredUser(result.user);
-    
+
     return result;
   },
 
@@ -145,10 +139,10 @@ export const authApi = {
       method: 'POST',
       body: { email, password }
     });
-    
+
     setToken(result.token);
     setStoredUser(result.user);
-    
+
     return result;
   },
 
@@ -176,7 +170,7 @@ export const authApi = {
       body: { displayName },
       requireAuth: true
     });
-    
+
     setStoredUser(result.user);
     return result.user;
   },
@@ -194,9 +188,7 @@ export const authApi = {
   }
 };
 
-// ============================================
 // Projects API
-// ============================================
 
 export const projectsApi = {
   async getAll(): Promise<Project[]> {
@@ -263,9 +255,7 @@ export const projectsApi = {
   }
 };
 
-// ============================================
 // Compile API
-// ============================================
 
 export const compileApi = {
   async getBoards(): Promise<{ fqbn: string; name: string }[]> {
@@ -290,9 +280,7 @@ export const compileApi = {
   }
 };
 
-// ============================================
 // Health Check
-// ============================================
 
 export const healthCheck = async (): Promise<boolean> => {
   try {
